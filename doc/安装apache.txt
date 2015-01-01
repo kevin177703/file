@@ -1,0 +1,47 @@
+#注：已提前安装好 openssl zlib 参见 nginx安装目录
+
+cd /tmp
+wget http://apache.mirrors.lucidnetworks.net//apr/apr-1.5.1.tar.gz
+tar -zvxf apr-1.5.1.tar.gz && cd apr-1.5.1 && ./configure --prefix=/usr/local/apr && make && make install
+
+cd /tmp
+wget http://mirror.tcpdiag.net/apache//apr/apr-util-1.5.3.tar.gz
+tar -zvxf apr-util-1.5.3.tar.gz && cd apr-util-1.5.3 && ./configure --prefix=/usr/local/apr-util --with-apr=/usr/local/apr && make && make install
+
+cd /tmp
+wget http://supergsego.com/apache//httpd/httpd-2.4.9.tar.gz
+tar -zvxf httpd-2.4.9.tar.gz
+cd httpd-2.4.9
+./configure --prefix=/usr/local/apache2 \
+--with-apr=/usr/local/apr \
+--with-apr-util=/usr/local/apr-util \
+--with-ssl=/usr/local/ssl \
+--enable-file-cache \
+--enable-cache \
+--enable-disk-cache \
+--enable-mem-cache \
+--enable-deflate \
+--enable-expires \
+--enable-headers \
+--enable-usertrack \
+--enable-ssl \
+--enable-cgi \
+--enable-vhost-alias \
+--enable-rewrite \
+--enable-so
+make && make install
+
+
+vi /usr/local/apache2/conf/httpd.conf
+#ServerName www.example.com:80 处添加
+ServerName localhost:80
+
+cp /usr/local/apache2/bin/apachectl /etc/init.d/apache
+
+chmod +x /etc/init.d/apache
+
+cp /etc/init.d/apache /bin/apache
+
+service apache startapa	
+
+/usr/local/apache2/bin/apachectl start

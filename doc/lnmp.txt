@@ -1,0 +1,2 @@
+wget http://down.wdlinux.cn/in/lnmp_php_ssl_5217.sh
+sh lnmp_php_ssl_5217.sh

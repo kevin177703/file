@@ -1,0 +1,18 @@
+yum install cpio
+yum install expat-devel
+yum install gettext-devel
+
+yum install git
+
+git  --version
+
+git config --global user.name "frank"
+git config --global user.email frank@nwf.com
+
+ssh-keygen -t rsa -C "frank@nwf.com"
+
+cat ~/.ssh/id_rsa.pub
+
+ssh -T git@git.nwf.com:root/blh.git
+
+git clone git@git.nwf.com:root/blh.git

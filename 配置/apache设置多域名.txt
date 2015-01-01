@@ -1,0 +1,18 @@
+<Directory "/mnt/hgfs/linux/www">
+    Options FollowSymLinks Includes ExecCGI
+    AllowOverride All
+    Require all granted
+</Directory>
+
+<VirtualHost *:80>
+    DocumentRoot "/mnt/hgfs/linux/www/www.a11.com"
+    ServerName www.all.com
+    ErrorLog "logs/dummy-www.all.com-error.log"
+    CustomLog "logs/dummy-www.all.com-access.log" common
+</VirtualHost>
+<VirtualHost *:80>
+    DocumentRoot "/mnt/hgfs/linux/www/www.a22.com"
+    ServerName www.a22.com
+    ErrorLog "logs/dummy-www.a22.com-error.log"
+    CustomLog "logs/dummy-www.a22.com-access.log" common
+</VirtualHost>

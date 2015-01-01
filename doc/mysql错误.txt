@@ -1,0 +1,1 @@
+Starting MySQL.. ERROR! The server quit without updating PID file (/var/lib/mysql/localhost.localdomain.pid).

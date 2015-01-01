@@ -1,0 +1,51 @@
+yum install subversion
+yum -y remove subversion
+
+svnserve --version
+
+mkdir /usr/local/svn
+
+chmod -R 755 /usr/local/svn
+
+svnadmin create /usr/local/svn
+
+cd /usr/local/svn/conf
+
+vi passwd
+
+#用户名=密码
+
+tyler=1234qwer
+cyrus=1234qwer
+vi authz
+#用户名=权限
+[groups]
+admin=tyler,cyrus
+test=park
+
+[/]
+@admin=rw
+*=
+
+[/svn/www.test.com]
+@admin=rw
+@test=rw
+*=
+
+
+vi svnserve.conf
+anon-access = none # 使非授权用户无法访问
+auth-access = write # 使授权用户有写权限
+password-db = password
+authz-db = authz   # 访问控制文件
+realm = /usr/local/svn_db/svn # 认证命名空间，subversion会在认证提示里显示，并且作为凭证缓存的关键字。
+
+
+#启动
+svnserve -d -r /usr/local/svn
+
+svnserve -d -r /usr/local/svn --listen-port 3391
+
+netstat -ntlp
+
+vi /etc/rc.local

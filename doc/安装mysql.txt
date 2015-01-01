@@ -1,0 +1,92 @@
+#查看是否安装过mysql
+rpm -qa | grep mysql
+
+#删除mysql
+rpm -e mysql
+
+yum -y install ncurses-devel
+yum install ncurses-devel
+
+rm -rf /tmp/cmake-2.8.12.2/CMakeCache.txt
+
+cd /tmp
+wget http://www.cmake.org/files/v2.8/cmake-2.8.12.2.tar.gz
+tar -zxvf cmake-2.8.12.2.tar.gz
+cd cmake-2.8.12.2
+./bootstrap
+make &&sudo make install
+
+#查看是否安装成功
+cmake --version
+
+wget http://dev.mysql.com/Downloads/MySQL-5.5/mysql-5.5.27.tar.gz
+wget http://cdn.mysql.com/Downloads/MySQL-5.5/MySQL-5.5.38-1.el6.x86_64.rpm-bundle.tar
+wget http://cdn.mysql.com/Downloads/MySQL-5.6/MySQL-5.6.19-1.el6.x86_64.rpm-bundle.tar
+wget http://cdn.mysql.com/Downloads/MySQL-5.6/mysql-5.6.16.tar.gz
+
+tar -zxvf mysql-5.6.16.tar.gz
+cd mysql-5.6.16
+cmake \
+-DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
+-DMYSQL_DATADIR=/usr/local/mysql/data \
+-DSYSCONFDIR=/etc \
+-DWITH_MYISAM_STORAGE_ENGINE=1 \
+-DWITH_INNOBASE_STORAGE_ENGINE=1 \
+-DWITH_MEMORY_STORAGE_ENGINE=1 \
+-DWITH_READLINE=1 \
+-DMYSQL_UNIX_ADDR=/var/lib/mysql/mysql.sock \
+-DMYSQL_TCP_PORT=3306 \
+-DENABLED_LOCAL_INFILE=1 \
+-DWITH_PARTITION_STORAGE_ENGINE=1 \
+-DEXTRA_CHARSETS=all \
+-DDEFAULT_CHARSET=utf8 \
+-DDEFAULT_COLLATION=utf8_general_ci
+make && make install
+
+#查看用户列表
+cat /etc/passwd
+#查看用户组
+cat /etc/group 
+
+groupadd mysql
+useradd -g mysql mysql
+chown -R mysql:mysql /usr/local/mysql
+
+cd /etc
+mv my.cnf my.cnf.bak
+
+cd /usr/local/mysql
+#执行初始化配置脚本，创建系统自带的数据库和表
+scripts/mysql_install_db --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data --user=mysql
+
+cp support-files/mysql.server /etc/init.d/mysql
+
+chmod +x /etc/init.d/mysql
+
+cp -i /etc/init.d/mysql /bin
+
+chkconfig mysql on
+#启动MySQL
+service mysql start  
+
+vi /etc/profile
+PATH=/usr/local/mysql/bin:$PATH
+export PATH
+
+source /etc/profile
+
+vi /etc/rc.local
+mysql start
+
+#设置数据库启动程序
+cp /usr/local/mysql/bin/mysql /etc/init.d/mysqld
+chmod +x /etc/init.d/mysqld
+cp -i /etc/init.d/mysqld /bin
+
+mysql -uroot
+SET PASSWORD = PASSWORD('123456');
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '123456' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'180.232.108.150' IDENTIFIED BY '123456' WITH GRANT OPTION;
+
+
+rpm –ivh 

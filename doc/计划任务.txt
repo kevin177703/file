@@ -1,0 +1,29 @@
+yum install vixie-cron
+yum install crontabs
+/sbin/service crond start
+/sbin/service crond restart
+/sbin/service crond stop
+/sbin/service crond reload
+service crond status
+
+/etc/rc.d/init.d/crond start
+
+crontab -e
+
+4,9,14,19,24,29,34,39,44,49,54,59 * * * * /usr/local/php/bin/php /data/www/test.fy88.com/cli/ALL.php
+
+/usr/local/php/bin/php /data/www/bonus/cli/IBC.php
+
+/usr/local/php/bin/php /home/crontab/cli/IBC.php
+
+
+
+ÐÂ°æGDCááÌ¨¾WÖ·£º
+http://gdc.agingames.com:8083
+
+·ºÑÇfanya
+Ž¤Ì–£ºN36.fanya
+ÃÜ´a£ºl&upCt8x%U
+
+
+Array ( [0] => HTTP/1.1 301 Moved Permanently [Server] => Array ( [0] => tws [1] => NWS_UGC_HY ) [Date] => Array ( [0] => Fri, 12 Sep 2014 09:49:43 GMT [1] => Fri, 12 Sep 2014 09:49:41 GMT ) [Content-Type] => Array ( [0] => text/html; charset=UTF-8 [1] => image/gif ) [Connection] => Array ( [0] => close [1] => keep-alive ) [Location] => http://pub.idqqimg.com/qconn/wpa/button/button_121.gif [Pragma] => no-cache [Cache-Control] => Array ( [0] => no-cache; must-revalidate [1] => max-age=2592000 ) [1] => HTTP/1.1 200 OK [Expires] => Sun, 12 Oct 2014 09:49:41 GMT [Last-Modified] => Wed, 05 Jun 2013 07:25:38 GMT [Content-Length] => 1729 [X-Cache-Lookup] => Hit From Disktank ) 

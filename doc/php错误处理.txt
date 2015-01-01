@@ -1,0 +1,5 @@
+make: *** [sapi/cli/php] Error 1
+
+make ZEND_EXTRA_LIBS='-liconv'
+
+===============================

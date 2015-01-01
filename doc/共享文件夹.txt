@@ -1,0 +1,9 @@
+sudo yum install samba
+
+service smb status
+
+mkdir /home/data/www
+
+chmod 0777 /home/data/www
+
+sudo vi /etc/samba/smb.conf

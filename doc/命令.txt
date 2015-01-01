@@ -1,0 +1,40 @@
+#寻找 nginx
+find -name nginx  
+
+#卸载nginx
+yum remove nginx  
+
+#编辑防火墙
+vi /etc/sysconfig/iptables
+
+#重启防火墙
+/etc/init.d/iptables restart
+
+#查看用户列表
+cat /etc/passwd 
+#查看用户组列表
+cat /etc/group  
+
+#强制删除
+rpm -qa|grep php
+
+#设置目录所有者
+chown www.www /usr/local/nginx/html/ -R 
+#设置目录权限
+chmod 700 /usr/local/nginx/html/ -R 
+
+#设置开机启动
+vi /etc/rc.local
+/etc/init.d/nginx start
+
+#vi添加行号
+vi /etc/virc
+set nu
+
+#mysql数据导入
+source d:\datafilename.sql 
+
+unzip -o -d /home/sunny myfile.zip
+把myfile.zip文件解压到 /home/sunny/
+-o:不提示的情况下覆盖文件；
+-d:-d /home/sunny 指明将文件解压缩到/home/sunny目录下；

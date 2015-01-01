@@ -1,0 +1,8 @@
+cat /proc/cpuinfo  查看cpu
+free -m    查看内存
+fdisk -l查看硬盘分区
+df -h 查看挂载目录
+ifconfig查看网卡信息
+ethtool eth0查看详西的网卡工作模式
+
+lspic列出所有芯片信息，比如声卡，显卡，网卡等。

@@ -1,0 +1,181 @@
+﻿cd /usr/local
+wget http://redis.googlecode.com/files/redis-2.2.4.tar.gz
+tar -zvxf redis-2.2.4.tar.gz
+cd redis-2.2.4
+make 
+cd src
+
+mkdir /usr/local/redis
+
+cp redis-server  /usr/local/redis
+cp redis-benchmark /usr/local/redis
+cp redis-cli  /usr/local/redis
+
+cd /usr/local/redis-2.2.4/
+cp redis.conf  /usr/local/redis
+cd /usr/local/redis
+
+/usr/local/redis/redis-server   /usr/local/redis/redis.conf
+
+
+#打开防火墙对应端口
+vim /etc/sysconfig/iptables
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 6379 -j ACCEPT
+
+/etc/init.d/iptables restart
+
+vi /usr/local/redis/redis.conf
+daemonize yes
+
+设置启动关闭重启
+vim /etc/init.d/redis
+##输入以下内容
+##begin
+PATH=/usr/local/bin:/sbin:/usr/bin:/bin
+ 
+REDISPORT=6379
+EXEC=/usr/local/redis/redis-server
+REDIS_CLI=/usr/local/redis/redis-cli
+ 
+PIDFILE=/var/run/redis.pid
+CONF="/usr/local/redis/redis.conf"
+ 
+case "$1" in
+    start)
+        if [ -f $PIDFILE ]
+        then
+                echo "$PIDFILE exists, process is already running or crashed"
+        else
+                echo "Starting Redis server..."
+                $EXEC $CONF
+        fi
+        if [ "$?"="0" ] 
+        then 
+              echo "Redis is running..."
+        fi 
+        ;;
+    stop)
+        if [ ! -f $PIDFILE ]
+        then
+                echo "$PIDFILE does not exist, process is not running"
+        else
+                PID=$(cat $PIDFILE)
+                echo "Stopping ..."
+                $REDIS_CLI -p $REDISPORT SHUTDOWN
+                while [ -x ${PIDFILE} ]
+               do
+                    echo "Waiting for Redis to shutdown ..."
+                    sleep 1
+                done
+                echo "Redis stopped"
+        fi
+        ;;
+   restart|force-reload)
+        ${0} stop
+        ${0} start
+        ;;
+  *)
+    echo "Usage: /etc/init.d/redis {start|stop|restart|force-reload}" >&2
+        exit 1
+esac
+
+##end
+
+chmod +x /etc/init.d/redis
+cp /etc/init.d/redis /bin/redis
+
+查看运行情况
+netstat -nlpt | grep redis-server
+
+服务端下载地址
+https://code.google.com/p/redis/downloads/list
+
+
+下载redis.dll
+5.5
+http://www.iteye.com/topic/1132714
+
+5.4  5.3
+https://github.com/nicolasff/phpredis/downloads
+
+参考手册
+https://redis.readthedocs.org/en/latest/
+http://www.cnblogs.com/ikodota/archive/2012/03/05/php_redis_cn.html
+
+列表操作
+http://www.cnblogs.com/jiqing9006/p/3657480.html
+
+
+<?php
+$redis = new Redis();
+$redis->connect('192.168.153.130',6379);
+echo $redis->get('test');
+$redis->set('test','hello world!'.date('Y-m-d H:i:s'));
+
+
+redis.conf配置说明
+中文说明：
+1,是否以后台进程运行，默认为no
+daemonize no
+2,如以后台进程运行，则需指定一个pid，默认为/var/run/redis.pid
+pidfile /var/run/redis.pid
+3,监听端口，默认为6379
+port 6379
+4,绑定主机IP，默认值为127.0.0.1（注释）
+bind 127.0.0.1
+5,超时时间，默认为300（秒）
+timeout 300
+6,日志记录等级，有4个可选值，debug，verbose（默认值），notice，warning
+loglevel verbose
+7,日志记录方式，默认值为stdout
+logfile stdout
+8,可用数据库数，默认值为16，默认数据库为0
+databases 16
+9,指出在多长时间内，有多少次更新操作，就将数据同步到数据文件。这个可以多个条件配合，比如默认配置文件中的设置，就设置了三个条件。
+900秒（15分钟）内至少有1个key被改变
+save 900 1
+300秒（5分钟）内至少有10个key被改变
+save 300 10
+10,存储至本地数据库时是否压缩数据，默认为yes
+rdbcompression yes
+11,本地数据库文件名，默认值为dump.rdb
+dbfilename /root/redis_db/dump.rdb
+12,本地数据库存放路径，默认值为 ./
+dir /root/redis_db/
+13,当本机为从服务时，设置主服务的IP及端口（注释）
+slaveof <masterip> <masterport>
+14,当本机为从服务时，设置主服务的连接密码（注释）
+masterauth <master-password>
+15,连接密码（注释）
+requirepass foobared
+16,最大客户端连接数，默认不限制（注释）
+maxclients 128
+17,设置最大内存，达到最大内存设置后，Redis会先尝试清除已到期或即将到期的Key，当此方法处理后，任到达最大内存设置，将无法再进行写入操作。（注释）
+maxmemory <bytes>
+18,是否在每次更新操作后进行日志记录，如果不开启，可能会在断电时导致一段时间内的数据丢失。因为redis本身同步数据文件是按上面save条件来同步的，所以有的数据会在一段时间内只存在于内存中。默认值为no
+appendonly yes
+19,更新日志文件名，默认值为appendonly.aof（注释）
+appendfilename /root/redis_db/appendonly.aof
+20,更新日志条件，共有3个可选值。no表示等操作系统进行数据缓存同步到磁盘，always表示每次更新操作后手动调用fsync()将数据写到磁盘，everysec表示每秒同步一次（默认值）。
+appendfsync everysec
+21,是否使用虚拟内存，默认值为no
+vm-enabled yes
+22,虚拟内存文件路径，默认值为/tmp/redis.swap，不可多个Redis实例共享
+vm-swap-file /tmp/redis.swap
+23,将所有大于vm-max-memory的数据存入虚拟内存,无论vm-max-memory设置多小,所有索引数据都是内存存储的 (Redis的索引数据就是keys),也就是说,当vm-max-memory设置为0的时候,其实是所有value都存在于磁盘。默认值为0。
+vm-max-memory 0
+24,虚拟内存文件以块存储，每块32bytes
+vm-page-size 32
+25,虚拟内在文件的最大数
+vm-pages 134217728
+26,可以设置访问swap文件的线程数,设置最好不要超过机器的核数,如果设置为0,那么所有对swap文件的操作都是串行的.可能会造成比较长时间的延迟,但是对数据完整性有很好的保证.
+vm-max-threads 4
+27,把小的输出缓存放在一起，以便能够在一个TCP packet中为客户端发送多个响应，具体原理和真实效果我不是很清楚。所以根据注释，你不是很确定的时候就设置成yes
+glueoutputbuf yes
+28,在redis 2.0中引入了hash数据结构。当hash中包含超过指定元素个数并且最大的元素没有超过临界时，hash将以一种特殊的编码方式（大大减少内存使用）来存储，这里可以设置这两个临界值
+hash-max-zipmap-entries 64
+29,hash中一个元素的最大值
+hash-max-zipmap-value 512
+30,开启之后，redis将在每100毫秒时使用1毫秒的CPU时间来对redis的hash表进行重新hash，可以降低内存的使用。当你的使 用场景中，有非常严格的实时性需要，不能够接受Redis时不时的对请求有2毫秒的延迟的话，把这项配置为no。如果没有这么严格的实时性要求，可以设置 为yes，以便能够尽可能快的释放内存
+activerehashing yes
+

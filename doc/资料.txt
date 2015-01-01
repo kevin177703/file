@@ -1,0 +1,23 @@
+﻿xmapp
+http://www.oldapps.com/zh-cn/xampp.php?system=Windows_Server_2003
+
+redis
+http://blog.csdn.net/freebird_lb/article/details/7733970
+
+redis手册
+http://www.cnblogs.com/ikodota/archive/2012/03/05/php_redis_cn.html
+
+mssql 下载
+http://docs.moodle.org/27/en/Installing_MSSQL_for_PHP
+
+在线手册（多种）
+http://blog.51yip.com/manual/shell/index.html
+
+shell资料
+http://wiki.ubuntu.org.cn/Shell%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80
+
+学习 
+http://www.zhihu.com/question/20412301
+
+php
+http://yansu.org/2014/04/21/chain-of-responsibility-design-pattern.html

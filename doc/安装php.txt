@@ -1,0 +1,140 @@
+cd /tmp
+wget http://nchc.dl.sourceforge.net/project/mcrypt/Libmcrypt/2.5.8/libmcrypt-2.5.8.tar.gz
+tar -vxzf libmcrypt-2.5.8.tar.gz && cd libmcrypt-2.5.8 && ./configure --prefix=/usr/local/libmcrypt && make && make install
+
+yum install libxml2-devel curl-devel libjpeg-devel libpng-devel bzip2 bzip2-devel php-mbstring
+yum install curl-devel
+yum install libjpeg-devel libpng-devel
+yum install bzip2 bzip2-devel
+yum install php-mbstring
+yum -y install php-ssl
+
+cd /tmp
+wget http://museum.php.net/php5/php-5.2.17.tar.gz
+wget http://at1.php.net/distributions/php-5.4.29.tar.gz
+tar -vxzf php-5.4.29.tar.gz
+cd php-5.4.29
+./configure --prefix=/usr/local/php \
+--with-mysql=/usr/local/mysql \
+--enable-fpm \
+--enable-ftp \
+--with-mcrypt \
+--with-config-file-path=/usr/local/php/etc \
+--with-curl \
+--with-mcrypt=/usr/local/libmcrypt \
+--enable-mbstring=all \
+--with-gd \
+--with-jpeg-dir=/usr/local/lib \
+--with-png-dir=/usr/local/lib \
+--enable-pdo \
+--disable-debug  \
+--disable-rpath \
+--enable-inline-optimization \
+--with-bz2  \
+--with-zlib \
+--enable-sockets \
+--enable-sysvsem \
+--enable-sysvshm \
+--enable-pcntl \
+--enable-mbregex \
+--with-mhash \
+--enable-zip \
+--with-pcre-regex \
+--with-mysql \
+--with-mysqli \
+--enable-soap \
+--with-apxs2=/usr/local/apache2/bin/apxs
+
+make && make install
+
+
+cp php.ini-production /usr/local/php/etc/php.ini
+rm -rf /etc/php.ini
+ln -s /usr/local/php/etc/php.ini /etc/php.ini
+cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
+
+#查看php版本
+/usr/local/php/bin/php -v
+
+cp /usr/local/php/bin/php /etc/init.d/php
+chmod +x /etc/init.d/php
+cp -i /etc/init.d/php /bin
+
+#启动php-fpm
+/etc/rc.d/init.d/php-fpm
+
+/usr/local/php/sbin/php-fpm -D
+
+#设置启动服务---错误,重写
+vim /etc/init.d/php-fpm
+
+#!/bin/sh
+# chkconfig: - 95 15
+# description: php-fpm
+chkconfig --add php-fpm
+
+chmod +x /etc/init.d/php-fpm
+
+cp -i /etc/init.d/php-fpm /bin/php-fpm
+
+#查看php-fpm是否启动
+netstat -tnlpu|grep 9000
+
+vi /usr/local/nginx/conf/nginx.conf 
+
+location ~ \.php$ { 
+	fastcgi_pass    127.0.0.1:9000;  
+			 
+        fastcgi_index   index.php;  
+			
+        fastcgi_param SCRIPT_FILENAME $document_root/$fastcgi_script_name;  
+			 
+        include fastcgi_params;                   
+			 
+        include fastcgi.conf;
+		
+}
+
+#安装php扩展
+#如mbstring
+cd php-5.4.29/ext/mbstring
+/usr/local/php/bin/phpize
+./configure --with-php-config=/usr/local/php/bin/php-config
+make && make install
+vi /usr/local/php/etc/php.ini
+extension=mbstring.so
+
+#安装redis扩展
+cd /tmp
+wget https://codeload.github.com/nicolasff/phpredis/zip/master
+mv master phpredis.zip
+unzip phpredis.zip
+cd phpredis
+/usr/local/php/bin/phpize
+./configure --with-php-config=/usr/local/php/bin/php-config
+make && make install
+vi /usr/local/php/etc/php.ini
+extension=redis.so
+
+#安装memecache扩展
+cd /tmp
+wget http://pecl.php.net/get/memcache-3.0.8.tgz
+tar -zvxf memcache-3.0.8.tgz
+cd memcache-3.0.8
+/usr/local/php/bin/phpize
+./configure --with-php-config=/usr/local/php/bin/php-config --enable-memcache
+make && make install
+vi /usr/local/php/etc/php.ini
+extension=memcache.so
+
+#更新curl  curl和ssl冲突，版本太低
+cd /tmp
+wget wget http://curl.haxx.se/download/curl-7.35.0.tar.gz
+tar -zvxf curl-7.35.0.tar.gz
+cd curl-7.35.0
+/usr/local/php/bin/phpize
+./configure --with-php-config=/usr/local/php/bin/php-config --enable-curl
+make && make install
+
+display_errors=Off
+

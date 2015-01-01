@@ -1,0 +1,124 @@
+yum install gcc-c++
+
+cd /tmp
+wget http://zlib.net/zlib-1.2.8.tar.gz
+tar -zxvf zlib-1.2.8.tar.gz
+cd zlib-1.2.8
+./configure
+make && make install
+
+cd /tmp
+wget http://www.openssl.org/source/openssl-1.0.0l.tar.gz
+tar -xzvf openssl-1.0.0l.tar.gz
+cd openssl-1.0.0l
+./config -fPIC
+make && make install
+
+cd /tmp
+wget http://jaist.dl.sourceforge.net/project/pcre/pcre/8.35/pcre-8.35.tar.gz
+tar -xzvf pcre-8.35.tar.gz
+cd pcre-8.35
+./configure 
+make && make install
+
+cd /tmp
+wget http://nginx.org/download/nginx-1.7.1.tar.gz
+tar -xzvf nginx-1.7.1.tar.gz 
+cd nginx-1.7.1
+./configure
+make && make install
+
+ln -s /usr/local/lib/libpcre.so.1 /lib64
+
+cd /usr/local/nginx/sbin
+
+./nginx
+
+netstat -ntlp
+
+
+vi /etc/init.d/nginx
+
+#!/bin/bash
+# nginx Startup script for the Nginx HTTP Server
+# it is v.0.0.2 version.
+# chkconfig: - 85 15
+# description: Nginx is a high-performance web and proxy server.
+#              It has a lot of features, but it's not for everyone.
+# processname: nginx
+# pidfile: /var/run/nginx.pid
+# config: /usr/local/nginx/conf/nginx.conf
+nginxd=/usr/local/nginx/sbin/nginx
+nginx_config=/usr/local/nginx/conf/nginx.conf
+nginx_pid=/var/run/nginx.pid
+RETVAL=0
+prog="nginx"
+# Source function library.
+. /etc/rc.d/init.d/functions
+# Source networking configuration.
+. /etc/sysconfig/network
+# Check that networking is up.
+[ ${NETWORKING} = "no" ] && exit 0
+[ -x $nginxd ] || exit 0
+# Start nginx daemons functions.
+start() {
+if [ -e $nginx_pid ];then
+   echo "nginx already running...."
+   exit 1
+fi
+   echo -n $"Starting $prog: "
+   daemon $nginxd -c ${nginx_config}
+   RETVAL=$?
+   echo
+   [ $RETVAL = 0 ] && touch /var/lock/subsys/nginx
+   return $RETVAL
+}
+# Stop nginx daemons functions.
+stop() {
+        echo -n $"Stopping $prog: "
+        killproc $nginxd
+        RETVAL=$?
+        echo
+        [ $RETVAL = 0 ] && rm -f /var/lock/subsys/nginx /var/run/nginx.pid
+}
+# reload nginx service functions.
+reload() {
+    echo -n $"Reloading $prog: "
+    #kill -HUP `cat ${nginx_pid}`
+    killproc $nginxd -HUP
+    RETVAL=$?
+    echo
+}
+# See how we were called.
+case "$1" in
+start)
+        start
+        ;;
+stop)
+        stop
+        ;;
+reload)
+        reload
+        ;;
+restart)
+        stop
+        start
+        ;;
+status)
+        status $prog
+        RETVAL=$?
+        ;;
+*)
+        echo $"Usage: $prog {start|stop|restart|reload|status|help}"
+        exit 1
+esac
+exit $RETVAL
+
+chmod +x /etc/init.d/nginx
+
+cp -i /etc/init.d/nginx /bin
+
+
+#×ÔÆô¶¯
+vi /etc/rc.local
+/etc/init.d/nginx start
