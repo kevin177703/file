@@ -47,3 +47,6 @@ echo $mem->getVersion();
 $data = "111111";
 echo $mem->get('a1');
 $mem->set('a1', $data);
+
+dllÏÂÔØ
+http://windows.php.net/downloads/pecl/snaps/memcache/3.0.9/
