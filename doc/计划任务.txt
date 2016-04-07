@@ -18,3 +18,17 @@ crontab -e
 
 
  
+
+
+1,6,11,16,21,26,31,36,41,51 * * * * /usr/local/php/bin/php /home/bonus/cli/blue/AG.php
+1,6,11,16,21,26,31,36,41,51 * * * * /usr/local/php/bin/php /home/bonus/cli/blue/BBIN.php
+1,6,11,16,21,26,31,36,41,51 * * * * /usr/local/php/bin/php /home/bonus/cli/blue/PT.php
+1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,41,43,45,47,49,51,53,55,57,59 * * * * /usr/local/php/bin/php /home/bonus/cli/blue/HQ.php
+1,6,11,16,21,26,31,36,41,51 * * * * /usr/local/php/bin/php /home/bonus/cli/blue/OG.php
+1,6,11,16,21,26,31,36,41,51 * * * * /usr/local/php/bin/php /home/bonus/cli/blue/IBC.php
+1,6,11,16,21,26,31,36,41,51 * * * * /usr/local/php/bin/php /home/bonus/cli/blue/XCP.php
+#1,11,21,31,41,51 * * * * /usr/local/php/bin/php /home/bonus/cli/hf/MG.php
+3,13,23,33,43,53 * * * * /usr/local/php/bin/php /home/bonus/cli/all/ALL.php
+#45 14,15,16,17,18,19,20 * * * /usr/local/php/bin/php /home/bonus/cli/fs/DAY.php
+#55 14,15,16,17,18,19,20 * * * /usr/local/php/bin/php /home/bonus/cli/fs/HF_DAY.php
+#35 */1 * * * /usr/local/php/bin/php /home/bonus/cli/vip/DAY.php

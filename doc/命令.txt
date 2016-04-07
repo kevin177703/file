@@ -34,6 +34,9 @@ set nu
 #mysql数据导入
 source d:\datafilename.sql 
 
+#mysql 导出
+mysqldump -uroot -p111111 hgame > /tmp/hgame1.sql
+
 unzip -o -d /home/sunny myfile.zip
 把myfile.zip文件解压到 /home/sunny/
 -o:不提示的情况下覆盖文件；

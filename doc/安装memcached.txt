@@ -1,8 +1,7 @@
 wget http://cloud.github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
 tar -zvxf libevent-2.0.21-stable.tar.gz
 cd libevent-2.0.21-stable
-./configure -prefix=/usr
-make && make install
+./configure -prefix=/usr && make && make install
 #64位要做以下操作
 ln -s /usr/lib/libevent-2.0.so.5 /usr/lib64/libevent-2.0.so.5
 
@@ -16,7 +15,7 @@ make && make install
 #启动
 /usr/local/memcached/bin/memcached -d start  -u root  -m  1024 -p 11211 -c  2048 -P /user/local/memcached/memcached.pid
 
-
+re
 vi /etc/rc.local
 /usr/local/memcached/bin/memcached -d start  -u root  -m  1024 -p 11211 -c  2048 -P /user/local/memcached/memcached.pid
 

@@ -21,3 +21,6 @@ http://www.zhihu.com/question/20412301
 
 php
 http://yansu.org/2014/04/21/chain-of-responsibility-design-pattern.html
+
+memcache客户端
+http://pecl.php.net/package/memcache
