@@ -1,0 +1,11 @@
+function geturl($url){
+	$ch = curl_init($url) ;
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true) ;
+	curl_setopt($ch, CURLOPT_BINARYTRANSFER, true) ;
+	$res = curl_exec ($ch);
+	curl_close ($ch);
+	if (substr( $res, 0, 3 ) == "\xEF\xBB\xBF" ){
+		$res=substr_replace( $res, '', 0, 3 ) ;
+	}
+	return $res;
+}
