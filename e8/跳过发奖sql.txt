@@ -1,4 +1,6 @@
-#update issueinfo set statuscode=2,statusdeduct=2,statususerpoint=2,statuscheckbonus=2,statusbonus=2,statustasktoproject=2,statussynced=1,statuslocks=2 where issue <16050534 and lotteryid=6;
+update issueinfo set statuscode=2,statusdeduct=2,statususerpoint=2,statuscheckbonus=2,statusbonus=2,statustasktoproject=2,statussynced=1,statuslocks=2 where issue <160518040 and lotteryid=1;
+update issueinfo set statuscode=2,statusdeduct=2,statususerpoint=2,statuscheckbonus=2,statusbonus=2,statustasktoproject=2,statussynced=1,statuslocks=2 where salestart<'2016-05-17 21:28:00' and lotteryid=4;
+update issueinfo set statuscode=2,statusdeduct=2,statususerpoint=2,statuscheckbonus=2,statusbonus=2,statustasktoproject=2,statussynced=1,statuslocks=2 where issue <16051423 and lotteryid=6;
+update issueinfo set statuscode=2,statusdeduct=2,statususerpoint=2,statuscheckbonus=2,statusbonus=2,statustasktoproject=2,statussynced=1,statuslocks=2 where salestart<'2016-05-18 12:38:00' and lotteryid=7;
 
-#update issueinfo set statuscode=2,statusdeduct=2,statususerpoint=2,statuscheckbonus=2,statusbonus=2,statustasktoproject=2,statussynced=1,statuslocks=2 where lotteryid=21;
 update issueinfo set statuscode=2,statusdeduct=2,statususerpoint=2,statuscheckbonus=2,statusbonus=2,statustasktoproject=2,statussynced=1,statuslocks=2 where salestart<'2016-05-05 16:57:00' and lotteryid=21;
