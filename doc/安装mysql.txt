@@ -84,7 +84,7 @@ chmod +x /etc/init.d/mysqld
 cp -i /etc/init.d/mysqld /bin
 
 远程连接mysql
-mysql -h[ip] -uroot -p
+mysql -h[ip] -p[端口] -uroot -p
 
 mysql -uroot
 SET PASSWORD = PASSWORD('123456');
@@ -108,6 +108,7 @@ GRANT ALL PRIVILEGES ON *.* TO 'root'@'180.232.108.150' IDENTIFIED BY 'tlkn2c4x6
 GRANT ALL PRIVILEGES ON *.* TO 'rroot'@'119.93.91.64' IDENTIFIED BY 'Gatqo9wZ2volninW' WITH GRANT OPTION;
 
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'kevin1239getk8' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'IuXt3vgPTEQJzVCt' WITH GRANT OPTION;
 
 
 GRANT ALL PRIVILEGES ON *.* TO 'rroot'@'119.93.91.64' IDENTIFIED BY 'IuXt3vgPTEQJzVCt' WITH GRANT OPTION;
