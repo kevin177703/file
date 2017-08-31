@@ -87,7 +87,8 @@ cp -i /etc/init.d/mysqld /bin
 mysql -h[ip] -p[¶Ë¿Ú] -uroot -p
 
 mysql -uroot
-SET PASSWORD = PASSWORD('123456');
+SET PASSWORD = PASSWORD('IuXt3vgPTEQJzVCt');
+UPDATE user SET password=PASSWORD('IuXt3vgPTEQJzVCt') WHERE User='rroot' and HOST='%'
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '123456' WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'180.232.108.150' IDENTIFIED BY 'kevin@135boya~!' WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON *.* TO 'boya'@'180.232.108.150' IDENTIFIED BY 'kevin@135boya~!' WITH GRANT OPTION;
