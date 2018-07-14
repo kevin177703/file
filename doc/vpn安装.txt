@@ -1,0 +1,3 @@
+yum install -y make gcc gmp-devel xmlto bison flex xmlto libpcap-devel lsof vim-enhanced man
+
+yum install openswan
