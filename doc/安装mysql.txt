@@ -1,7 +1,7 @@
-#≤Èø¥ «∑Ò∞≤◊∞π˝mysql
+#Êü•ÁúãÊòØÂê¶ÂÆâË£ÖËøámysql
 rpm -qa | grep mysql
 
-#…æ≥˝mysql
+#Âà†Èô§mysql
 rpm -e mysql
 
 yum -y install ncurses-devel
@@ -16,7 +16,7 @@ cd cmake-2.8.12.2
 ./bootstrap
 make &&sudo make install
 
-#≤Èø¥ «∑Ò∞≤◊∞≥…π¶
+#Êü•ÁúãÊòØÂê¶ÂÆâË£ÖÊàêÂäü
 cmake --version
 
 wget http://dev.mysql.com/Downloads/MySQL-5.5/mysql-5.5.27.tar.gz
@@ -43,9 +43,9 @@ cmake \
 -DDEFAULT_COLLATION=utf8_general_ci
 make && make install
 
-#≤Èø¥”√ªß¡–±Ì
+#Êü•ÁúãÁî®Êà∑ÂàóË°®
 cat /etc/passwd
-#≤Èø¥”√ªß◊È
+#Êü•ÁúãÁî®Êà∑ÁªÑ
 cat /etc/group 
 
 groupadd mysql
@@ -56,7 +56,7 @@ cd /etc
 mv my.cnf my.cnf.bak
 
 cd /usr/local/mysql
-#÷¥––≥ı ºªØ≈‰÷√Ω≈±æ£¨¥¥Ω®œµÕ≥◊‘¥¯µƒ ˝æ›ø‚∫Õ±Ì
+#ÊâßË°åÂàùÂßãÂåñÈÖçÁΩÆËÑöÊú¨ÔºåÂàõÂª∫Á≥ªÁªüËá™Â∏¶ÁöÑÊï∞ÊçÆÂ∫ìÂíåË°®
 scripts/mysql_install_db --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data --user=mysql
 
 cp support-files/mysql.server /etc/init.d/mysql
@@ -66,7 +66,7 @@ chmod +x /etc/init.d/mysql
 cp -i /etc/init.d/mysql /bin
 
 chkconfig mysql on
-#∆Ù∂ØMySQL
+#ÂêØÂä®MySQL
 service mysql start  
 
 vi /etc/profile
@@ -78,43 +78,43 @@ source /etc/profile
 vi /etc/rc.local
 mysql start
 
-#…Ë÷√ ˝æ›ø‚∆Ù∂Ø≥Ã–Ú
+#ËÆæÁΩÆÊï∞ÊçÆÂ∫ìÂêØÂä®Á®ãÂ∫è
 cp /usr/local/mysql/bin/mysql /etc/init.d/mysqld
 chmod +x /etc/init.d/mysqld
 cp -i /etc/init.d/mysqld /bin
 
-‘∂≥Ã¡¨Ω”mysql
-mysql -h[ip] -p[∂Àø⁄] -uroot -p
+ËøúÁ®ãËøûÊé•mysql
+mysql -h[ip] -p[Á´ØÂè£] -uroot -p
 
 mysql -uroot
 SET PASSWORD = PASSWORD('IuXt3vgPTEQJzVCt');
 UPDATE user SET password=PASSWORD('IuXt3vgPTEQJzVCt') WHERE User='rroot' and HOST='%'
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '123456' WITH GRANT OPTION;
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'180.232.108.150' IDENTIFIED BY 'kevin@135boya~!' WITH GRANT OPTION;
-GRANT ALL PRIVILEGES ON *.* TO 'boya'@'180.232.108.150' IDENTIFIED BY 'kevin@135boya~!' WITH GRANT OPTION;
-GRANT ALL PRIVILEGES ON *.* TO 'boya'@'121.127.13.226' IDENTIFIED BY 'kevin@135boya~!' WITH GRANT OPTION;
-GRANT ALL PRIVILEGES ON *.* TO 'boya'@'172.31.24.166' IDENTIFIED BY 'kevin@135boya~!' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'180.232.0.0' IDENTIFIED BY 'kevin@135boya~!' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'boya'@'180.232.0.0' IDENTIFIED BY 'kevin@135boya~!' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'boya'@'180.232.0.0' IDENTIFIED BY 'kevin@135boya~!' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'boya'@'180.232.0.0' IDENTIFIED BY 'kevin@135boya~!' WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY '123456' WITH GRANT OPTION;
 
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'54.169.105.12' IDENTIFIED BY '1qazxsw2' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'180.232.0.0' IDENTIFIED BY '1qazxsw2' WITH GRANT OPTION;
 
-GRANT ALL PRIVILEGES ON *.* TO 'rroot'@'180.232.108.150' IDENTIFIED BY 'nice2days' WITH GRANT OPTION;
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'121.127.13.226' IDENTIFIED BY '1qazxsw2' WITH GRANT OPTION;
-GRANT ALL PRIVILEGES ON *.* TO 'rroot'@'58.64.154.168' IDENTIFIED BY 'kevin365@nbc.ph' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'rroot'@'180.232.0.0' IDENTIFIED BY 'nice2days' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'180.232.0.0' IDENTIFIED BY '1qazxsw2' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'rroot'@'180.232.0.0' IDENTIFIED BY 'kevin365@nbc.ph' WITH GRANT OPTION;
 
 
-GRANT ALL PRIVILEGES ON *.* TO 'rroot'@'121.127.13.226' IDENTIFIED BY 'jq540hmq9tPqASZp' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'rroot'@'180.232.0.0' IDENTIFIED BY 'jq540hmq9tPqASZp' WITH GRANT OPTION;
 
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'180.232.108.150' IDENTIFIED BY 'tlkn2c4x69m' WITH GRANT OPTION;
-GRANT ALL PRIVILEGES ON *.* TO 'rroot'@'119.93.91.64' IDENTIFIED BY 'Gatqo9wZ2volninW' WITH GRANT OPTION;
-GRANT ALL PRIVILEGES ON *.* TO 'rroot'@'119.93.91.64' IDENTIFIED BY 'jq540hmq9tPqASZp' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'180.232.0.0' IDENTIFIED BY 'tlkn2c4x69m' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'rroot'@'180.232.0.0' IDENTIFIED BY 'Gatqo9wZ2volninW' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'rroot'@'180.232.0.0' IDENTIFIED BY 'jq540hmq9tPqASZp' WITH GRANT OPTION;
 
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'kevin1239getk8' WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'IuXt3vgPTEQJzVCt' WITH GRANT OPTION;
 
 
-GRANT ALL PRIVILEGES ON *.* TO 'rroot'@'180.232.108.150' IDENTIFIED BY 'IuXt3vgPTEQJzVCt' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'rroot'@'180.232.0.0' IDENTIFIED BY 'IuXt3vgPTEQJzVCt' WITH GRANT OPTION;
 
 FLUSH PRIVILEGES
 
-rpm ®Civh 
+rpm ‚Äìivh 
